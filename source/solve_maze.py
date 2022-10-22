@@ -1,7 +1,8 @@
 import os
 import os.path as p
 from pathlib import Path
-from read_file import read_file
+from read_file import read_file, read_file_2
+from teleport import maze_have_teleportations
 from visualize_maze import visualize_maze
 from draw_maze import draw_maze
 from DFS import DFS
@@ -14,12 +15,21 @@ from create_video import create_video
 
 def solve_maze(algo, level, map, heuristic = None):
     lv = 'level_' + str(level)
-    #draw_maze(lv)
     cur = p.dirname(Path(__file__).parent.absolute())  #lấy directory
-    levelDirectory = cur + '\\input\\' + lv + '\\'
-  
-    name = p.join(levelDirectory,map)
-    bonus_points, matrix = read_file(name)
+    
+
+    if level == 3:
+        lv = 'advance'
+        levelDirectory = cur + '\\input\\' + lv + '\\'
+        name = p.join(levelDirectory,map)
+        bonus_points = []
+        teleportations, matrix = read_file_2(name)
+    else:
+        levelDirectory = cur + '\\input\\' + lv + '\\'
+        name = p.join(levelDirectory,map)
+        teleportations = {}
+        bonus_points, matrix = read_file(name)
+
     for i in range(len(matrix)):
         for j in range(len(matrix[0])):
             if matrix[i][j]=='S':
@@ -50,7 +60,11 @@ def solve_maze(algo, level, map, heuristic = None):
     if level == 2:
         route, s = maze_have_points(matrix, start, end, bonus_points)
         cost = len(route) + s
-    
+
+    if level == 3:
+        route, openTele = maze_have_teleportations(matrix, start, end, teleportations, 'Manhattan')
+        cost = len(route)
+
     walls = [(i, j) for i in range(len(matrix)) for j in range(len(matrix[0])) if matrix[i][j] == 'x']
-    visualize_maze(matrix, bonus_points, start, end, route, cost, algo, lv, map, heuristic)
-    create_video(start, end, route, bonus_points, walls, algo, lv, map, heuristic)
+    visualize_maze(matrix, bonus_points, start, end, openTele, route, cost, algo, lv, map, heuristic)
+    create_video(start, end, route, bonus_points, teleportations, walls, algo, lv, map, heuristic)

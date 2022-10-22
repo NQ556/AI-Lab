@@ -1,4 +1,3 @@
-
 import os.path as p
 from pathlib import Path
 import matplotlib.pyplot as plt
@@ -9,7 +8,13 @@ from tabnanny import check
 from turtle import color
 from unicodedata import name
 
-def visualize_maze(matrix, bonus, start, end, route = None, cost = None, algo = None, level = None, map = None, heuristic = None):
+def isInList(point, route):
+    for item in route:
+        if item == point:
+            return True
+    return False
+
+def visualize_maze(matrix, bonus, start, end, openTele=None, route = None, cost = None, algo = None, level = None, map = None, heuristic = None):
     """
     Args:
       1. matrix: The matrix read from the input file,
@@ -19,18 +24,29 @@ def visualize_maze(matrix, bonus, start, end, route = None, cost = None, algo = 
     """
     #1. Define walls and array of direction based on the open
     walls=[(i,j) for i in range(len(matrix)) for j in range(len(matrix[0])) if matrix[i][j]=='x']
+    inTeleport = []
+    outTeleport = []
+    for i in range(len(matrix)):
+        for j in range(len(matrix[0])):
+            if matrix[i][j] == 'i':
+                inTeleport.append((i, j))
+            if matrix[i][j] == 'o':
+                outTeleport.append((i, j))
 
     if route:
         direction=[]
-        for i in range(1, len(route)):
-            if route[i][0]-route[i-1][0] > 0:
-                direction.append('v') #^
-            elif route[i][0]-route[i-1][0] < 0:
-                direction.append('^') #v        
-            elif route[i][1]-route[i-1][1] > 0:
-                direction.append('>')
+        for i in range(1, len(route)):      
+            if isInList(route[i-1], openTele):
+                direction.append('None')
             else:
-                direction.append('<')
+                if route[i][0]-route[i-1][0] > 0:
+                    direction.append('v') #^
+                elif route[i][0]-route[i-1][0] < 0:
+                    direction.append('^') #v        
+                elif route[i][1]-route[i-1][1] > 0:
+                    direction.append('>')
+                else:
+                    direction.append('<')
         direction.pop(0)  
 
     #2. Drawing the map
@@ -42,7 +58,12 @@ def visualize_maze(matrix, bonus, start, end, route = None, cost = None, algo = 
 
     plt.scatter([i[1] for i in walls],[-i[0] for i in walls],
                 marker='X',s=100,color='black')
-    
+                
+    plt.scatter([i[1] for i in inTeleport],[-i[0] for i in inTeleport],
+                marker='d',s=100,color='pink')
+    plt.scatter([i[1] for i in outTeleport],[-i[0] for i in outTeleport],
+                marker='d',s=100,color='purple')
+
     plt.scatter([i[1] for i in bonus],[-i[0] for i in bonus],
                 marker='P',s=100,color='green')
 
@@ -107,7 +128,7 @@ def visualize_maze(matrix, bonus, start, end, route = None, cost = None, algo = 
 
     name_txt = algo + '.txt'
     with open(p.join(folder,name_txt), 'w') as outfile:
-        outfile.write(str(len(route)))
+        outfile.write(str(cost))
 
 
     plt.show()

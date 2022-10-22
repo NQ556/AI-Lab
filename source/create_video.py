@@ -12,13 +12,15 @@ def draw(x, y, color, screen, type=None):
     else:
         clock.tick(500)
 
-def create_video(start, end, route, bonus, walls, algo = None, level = None, map = None, heuristic = None):
+def create_video(start, end, route, bonus, teleportations, walls, algo = None, level = None, map = None, heuristic = None):
     BLACK = (0,0,0)
     WHITE = (255, 255, 255)
     RED = (200, 0, 0)
     YELLOW = (255, 255, 0)
     GREEN = (0, 255, 0)
-    BLUE = (30, 144, 255)  
+    BLUE = (30, 144, 255) 
+    PINK = (255,100,180)
+    PURPLE = (138, 43, 226) 
     RES = 1300, 540
     FPS = 30
     pygame.init()
@@ -39,8 +41,19 @@ def create_video(start, end, route, bonus, walls, algo = None, level = None, map
                 recorder = ScreenRecorder(RES[0], RES[1], FPS, name, folder)
         else:
             recorder = ScreenRecorder(RES[0], RES[1], FPS, algo, folder)
+    
     elif level == 'level_2':
         recorder = ScreenRecorder(RES[0], RES[1], FPS, algo, folder)
+    
+    elif level == 'advance':
+        recorder = ScreenRecorder(RES[0], RES[1], FPS, algo, folder)
+
+    if teleportations:
+        inTeleport = list(teleportations.keys())
+        outTeleport = list(teleportations.values())
+    else:
+        inTeleport = []
+        outTeleport = []
 
     while True:
         for event in pygame.event.get():
@@ -56,6 +69,11 @@ def create_video(start, end, route, bonus, walls, algo = None, level = None, map
             for wall in walls:
                 draw(wall[1],wall[0],BLACK,DISPLAYSURF)
             
+            if inTeleport:
+                for tele in inTeleport:
+                    draw(tele[1], tele[0], PINK, DISPLAYSURF)
+                for tele in outTeleport:
+                    draw(tele[1], tele[0], PURPLE, DISPLAYSURF)
 
             if bonus:
                 for b in bonus:
@@ -63,12 +81,10 @@ def create_video(start, end, route, bonus, walls, algo = None, level = None, map
                     
 
             draw(start[1], start[0], YELLOW, DISPLAYSURF)
-            #recorder.capture_frame(DISPLAYSURF)
             draw(end[1], end[0], RED, DISPLAYSURF)
-            #recorder.capture_frame(DISPLAYSURF)
 
             route.pop(0)
-            #route.pop()
+            route.pop()
             for r in route:
                 draw(r[1],r[0],BLUE,DISPLAYSURF)
                 recorder.capture_frame(DISPLAYSURF)
@@ -76,6 +92,13 @@ def create_video(start, end, route, bonus, walls, algo = None, level = None, map
             if bonus:
                 for b in bonus:
                     draw(b[1],b[0],GREEN,DISPLAYSURF)
+                recorder.capture_frame(DISPLAYSURF)
+
+            if inTeleport:
+                for tele in inTeleport:
+                    draw(tele[1], tele[0], PINK, DISPLAYSURF)
+                for tele in outTeleport:
+                    draw(tele[1], tele[0], PURPLE, DISPLAYSURF)
                 recorder.capture_frame(DISPLAYSURF)
         
         recorder.end_recording()    

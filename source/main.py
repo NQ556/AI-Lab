@@ -13,6 +13,10 @@ inputLevel1 = os.listdir(Path(curPath + '\\input\\' + '\\level_1\\'))
 curPath = p.dirname(Path(__file__).parent.absolute())
 inputLevel2 = os.listdir(Path(curPath + '\\input\\' + '\\level_2\\'))
 
+#Get all files in input advance
+curPath = p.dirname(Path(__file__).parent.absolute())
+inputAdvance = os.listdir(Path(curPath + '\\input\\' + '\\advance\\'))
+
 #Algorithm level map heuristic
 
 for i in ['DFS', 'BFS', 'UCS']:
@@ -26,3 +30,6 @@ for i in ['AStar', 'GBFS']:
 
 for i in inputLevel2:
     solve_maze('Bonus', 2, i)
+
+for i in inputAdvance:
+    solve_maze('Teleport', 3, i)
