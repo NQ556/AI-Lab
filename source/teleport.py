@@ -69,9 +69,12 @@ def maze_have_teleportations(matrix, start, end, teleportations, h):
                     childPoint = (a-1, b)
                 
                 if isInList(currPoint, inTeleport):
-                    childPoint = teleportations[currPoint]
-                    gTmp = g[currPoint]
-                    isTeleported = True
+                    if heuristic(teleportations[currPoint], end, h) < heuristic(childPoint, end, h):
+                        childPoint = teleportations[currPoint]
+                        gTmp = g[currPoint]
+                        isTeleported = True
+                    else:
+                        gTmp = g[currPoint] + 1
                 else:
                     gTmp = g[currPoint] + 1
 

@@ -29,7 +29,7 @@ for i in ['AStar', 'GBFS']:
             solve_maze(i, 1, j, k)
 
 for i in inputLevel2:
-    solve_maze('Bonus', 2, i)
+    solve_maze('Bonus', 2, i)   
 
 for i in inputAdvance:
     solve_maze('Teleport', 3, i)

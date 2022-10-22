@@ -230,7 +230,7 @@ def draw_maze(lv):
             with open(inputDir, 'w') as outfile:
                 outfile.write('2\n')
                 outfile.write('13 26 2 30\n')
-                outfile.write('10 26 9 4\n')
+                outfile.write('13 23 9 4\n')
                 outfile.write('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n')
                 outfile.write('x x        x     x   x    x           x\n')
                 outfile.write('x x x      x     x x x x  x xxo    x  x\n')
