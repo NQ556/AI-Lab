@@ -16,7 +16,7 @@ from create_video import create_video
 def solve_maze(algo, level, map, heuristic = None):
     lv = 'level_' + str(level)
     cur = p.dirname(Path(__file__).parent.absolute())  #lấy directory
-    
+    openTele = []
 
     if level == 3:
         lv = 'advance'
