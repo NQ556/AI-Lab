@@ -1,0 +1,26 @@
+7
+Q OR T
+-P OR S
+P OR S
+-Q OR U
+-Q
+-T OR U
+-T
+6
+Q OR S
+-P OR U
+-P
+S OR T
+P OR U
+P
+5
+Q OR U
+Q
+T OR U
+T
+S
+3
+S OR U
+U
+{}
+YES

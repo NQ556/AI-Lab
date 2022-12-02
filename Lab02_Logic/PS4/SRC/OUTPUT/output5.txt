@@ -1,0 +1,12 @@
+5
+Q OR S
+P OR S
+P OR Q
+-P OR Q
+P OR -Q
+4
+Q OR -S
+P OR -S
+Q
+P
+NO
