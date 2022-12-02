@@ -14,6 +14,12 @@ def inverseLiteral(literal):
         literal = '-' + literal
     return literal
 
+def inverseClause(clause):
+    for i in range(0, len(clause)):
+        tmp = inverseLiteral(clause[i])
+        clause[i] = tmp
+    return clause
+
 def isInversedLiteral(literal1, literal2):
     res = False
     if literal1[0] == '-' and literal2[0] != '-' and literal1[-1] == literal2[-1]:
@@ -163,7 +169,9 @@ Path(outputPath).mkdir(parents = True, exist_ok = True)
 for i in range(0, len(inputFiles)):
     fileName = inputPath + inputFiles[i]
     clauses = readFile(fileName)
-    tmp = inverseLiteral(clauses[0])
-    clauses.append(tmp)
+    tmp = clauses[0].split('OR')
+    tmp = removeSpaces(tmp)
+    tmp = inverseClause(tmp)
+    clauses += tmp
     clauses = clauses[2:]
     Resolution(clauses, i)
