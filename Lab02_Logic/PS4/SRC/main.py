@@ -114,7 +114,7 @@ def writeFile(fileName, clauses):
             outfile.write(str(item))
             outfile.write(str('\n'))
 
-def Resolution(clauses, index):
+def PL_Resolution(clauses, index):
     outputFileName = 'output' + str(index + 1) + '.txt'
     newClauses = clauses.copy()
     tmpClauses = clauses.copy()
@@ -152,6 +152,7 @@ def Resolution(clauses, index):
             length = str(len(new))
             output.append(length)
             output += new
+            clauses += new
             newClause = []
             newClauses = new.copy()
             new = []
@@ -174,4 +175,4 @@ for i in range(0, len(inputFiles)):
     tmp = inverseClause(tmp)
     clauses += tmp
     clauses = clauses[2:]
-    Resolution(clauses, i)
+    PL_Resolution(clauses, i)

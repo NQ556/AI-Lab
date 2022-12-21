@@ -1,0 +1,10 @@
+R OR G
+8
+P OR S
+P OR T
+Q OR S
+Q OR T
+R OR G
+R OR H
+I OR G
+I OR H

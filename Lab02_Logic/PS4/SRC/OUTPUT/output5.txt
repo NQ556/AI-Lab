@@ -7,7 +7,7 @@ R OR -S
 Q OR -R
 -P OR -R
 -T
-9
+12
 -P OR Q OR T
 -P OR R OR T
 -P OR S
@@ -17,20 +17,19 @@ Q OR -S
 Q OR S
 -R
 -P OR -S
-8
--P OR T
-Q OR R
 -P OR Q
-Q OR T
 R OR T
 S
+9
+-P OR T
+Q OR R
+Q OR T
 -S
--P OR R
-4
 Q
-T
-R
+-P OR R
 -P
+R
+T
 1
 {}
 YES

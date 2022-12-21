@@ -6,18 +6,17 @@ P OR S
 -Q
 -T OR U
 -T
-6
+11
 Q OR S
 -P OR U
 -P
 S OR T
 P OR U
 P
-5
-Q OR U
-Q
 T OR U
 T
+Q OR U
+Q
 S
 3
 S OR U

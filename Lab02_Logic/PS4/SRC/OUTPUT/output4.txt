@@ -9,7 +9,7 @@ P OR T
 Q OR -S
 Q
 S
-14
+17
 P OR -S
 Q OR T
 Q OR -T
@@ -24,7 +24,6 @@ P OR -Q
 P
 S OR -T
 -P OR Q
-3
 -Q
 -S
 T
